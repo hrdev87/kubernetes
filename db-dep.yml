@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  selector:
+    matchLabels:
+      app: db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image:  hrgh8787/db01-img:latest
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: db-data
+        ports:
+        - name: db-port
+          containerPort: 3306
+        env:
+          - name: MY_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: app-secret
+                key: db-pass
+      nodeSelector:
+        zone: us-west-1
+        resource: vol-for-db-pod
+      volumes:
+        - name: db-data
+          awsElasticBlockStore:
+          volumeID: vol-0c2080bd67e906383
+          fsType: ext4
+      initContainers:
+        - name: busybox
+          image: busybox:latest
+          arg: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/mysql 
