@@ -30,8 +30,7 @@ spec:
                 name: app-secret
                 key: db-pass
       nodeSelector:
-        zone: us-west-1
-        resource: vol-for-db-pod
+        resource: vol-for-db-pod 
       volumes:
         - name: db-data
           awsElasticBlockStore:
