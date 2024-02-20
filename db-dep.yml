@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: db
+  name: vprodb
   labels:
-    app: db
+    app: vprodb
 spec:
   selector:
     matchLabels:
-      app: db
+      app: vprodb
   replicas: 1
   template:
     metadata:
       labels:
-        app: db
+        app: vprodb
     spec:
       containers:
-      - name: db
+      - name: vprodb
         image:  hrgh8787/db01-img:latest
         volumeMounts:
           - mountPath: /var/lib/mysql
