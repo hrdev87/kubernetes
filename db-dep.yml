@@ -29,6 +29,8 @@ spec:
               secretKeyRef:
                 name: app-secret
                 key: db-pass
+          - name: MY_ROOT_USER
+            value: "root"
       nodeSelector:
         resource: vol-for-db-pod 
       volumes:
