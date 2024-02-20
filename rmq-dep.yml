@@ -7,12 +7,12 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: vprormq01
+      app: vprormq01  # This should match the labels in template.metadata.labels
   replicas: 1
   template:
     metadata:
       labels:
-        app: vprormq01
+        app: vprormq01  # This should match the labels in selector.matchLabels
     spec:
       containers:
       - name: vprormq01
